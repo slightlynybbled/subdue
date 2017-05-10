@@ -1,3 +1,5 @@
+from pkg_resources import get_distribution
+
 import subdue.daqmx as daqmx
 import subdue.tc08 as tc08
 import subdue.visa as visa
@@ -161,4 +163,5 @@ def parse_visa_command(command, model_number=None, serial_number=None):
         return {'error': 'operation not recognized'}
 
 
-
+def get_package_version():
+    return get_distribution('subdue').version

@@ -1,22 +1,19 @@
 import sys
 import logging
-import os
 
 import flask
 import markdown
-from gevent.wsgi import WSGIServer
-from gevent import monkey
 
 import subdue.daqmx as daqmx
 import subdue.visa as visa
 import subdue.tc08 as tc08
 import subdue.utilities as utilities
 import subdue.cmd as cmd
-from subdue import __version__
+
+from waitress import serve
 
 
 logger = logging.getLogger(__name__)
-monkey.patch_all()
 app = flask.Flask(__name__)
 
 
@@ -24,7 +21,7 @@ app = flask.Flask(__name__)
 def index():
     with open('./static/index.md', 'r') as f:
         raw_text = f.read()
-        text = raw_text.replace('__version__', __version__)
+        text = raw_text.replace('__version__', utilities.get_package_version())
 
         html = markdown.markdown(text)
 
@@ -97,8 +94,7 @@ def main():
     port = cmd.get_port(sys.argv)
 
     #app.run(host=host, port=port, debug=True, threaded=True)
-    http_server = WSGIServer((host, port), app)
-    http_server.serve_forever()
+    serve(app, host=host, port=port)
 
 if __name__ == '__main__':
     main()

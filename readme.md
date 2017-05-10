@@ -10,7 +10,8 @@ extensions are associated with `python`.
 
 # Installation Instructions
 
-Todo: installation instructions
+To install, simply `pip install subdue`.  Note that there are several
+external dependencies.  See the documentation for details.
 
 ## Examples
 
