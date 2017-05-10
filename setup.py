@@ -11,7 +11,7 @@ requirements = [
     "pyvisa >= 1.8",
     "pydaqmx >= 1.3.2",
     "pytest >= 3.0.2",
-    "waitress"
+    "waitress >= 1.0.0"
 ]
 
 setup(
