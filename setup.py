@@ -20,10 +20,10 @@ setup(
     description='Hardware manipulation for National Instruments, Agilent, etc.',
     author='Jason R. Jones',
     author_email='slightlynybbled@gmail.com',
-    url='https://bitbucket.org/jjonesAtMoog/ams_hw_suite',
+    url='https://github.com/slightlynybbled/subdue',
     packages=find_packages(),
     entry_points={'console_scripts': [
-      'ams_hw_suite = ams_hw_suite.__main__:main']
+      'subdue = subdue.__main__:main']
     },
     include_package_data=True,
     install_requires=requirements,
