@@ -66,6 +66,7 @@ class ThermocoupleReader:
         self.reader = Tc08Usb()
         self.model = model_number
 
+    # todo: consider making this a property
     def available_channels(self):
         return [str(i) for i in range(9)]
 
