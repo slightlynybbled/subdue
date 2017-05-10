@@ -1,0 +1,7 @@
+*.idea/
+.cache/
+ams_hardware.egg-info/
+*__pycache__/
+ams_hw_suite.egg-info/
+build/
+dist/
