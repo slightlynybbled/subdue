@@ -60,7 +60,7 @@ class VisaInstrumentSearch(HardwareSearch):
         return data
 
     def list_references(self):
-        return [instrument['ModelNumber'] for instrument in list_connected()]
+        return [instrument['SerialNumber'] for instrument in list_connected()]
 
     def list_models(self):
         return [instrument['ModelNumber'] for instrument in list_connected()]
@@ -76,7 +76,7 @@ class VisaInstrument:
 
     command_timeout = 100
 
-    def __init__(self, model_number=None, serial_number=None, instrument=None):
+    def __init__(self, serial_number=None, model_number=None, instrument=None):
         """
         If the instrument is supplied, then this will save the instrument into the
         object for utilization.
@@ -108,8 +108,6 @@ class VisaInstrument:
                 ident = [e.strip() for e in ident]
                 entry = InstrumentId(ident[0], ident[1], ident[2])
 
-                print('ident: ', ident)
-
                 if serial_number in ident:
                     self.instrument = inst
                     self.serial_number = entry.SerialNumber
@@ -124,12 +122,10 @@ class VisaInstrument:
             except pyvisa.errors.VisaIOError as e:
                 pass
 
-        print('instrument assigned: ', self.instrument)
-
     def __repr__(self):
         return 'VisaInstrument {} {} {}'.format(self.instrument, self.model_number, self.serial_number)
 
-    def __del__(self):
+    def __exit__(self):
         """
         Releases the hardware
         :return:
@@ -163,7 +159,7 @@ class PowerSupply(VisaInstrument):
     A class intended for power supplies that conform to VISA/SCPI standards.
     """
 
-    def __init__(self, instrument=None, model_number=None, serial_number=None):
+    def __init__(self, serial_number=None, model_number=None, instrument=None):
         """
         Initializes the class
 
@@ -171,7 +167,7 @@ class PowerSupply(VisaInstrument):
         :param model_number: if the model number is supplied, then the visa instrument would attempt to take
         the resource with the matching model number
         """
-        self.vi = super().__init__(instrument, model_number, serial_number)
+        self.vi = super().__init__(serial_number=serial_number, model_number=model_number, instrument=instrument)
 
     def read_voltage(self):
         """
@@ -342,7 +338,7 @@ class PowerSupply(VisaInstrument):
         while not success:
             try:
                 q = '*RST'
-                self.instrument.write(q)
+                self.instrument.query(q)
                 success = True
 
             except pyvisa.errors.VisaIOError as e:
@@ -373,7 +369,7 @@ class PowerSupply(VisaInstrument):
                 else:
                     q = ':SOURce:VOLTage {}'.format(voltage)
 
-                self.instrument.write(q)
+                self.instrument.query(q)
                 success = True
 
             except pyvisa.errors.VisaIOError as e:
@@ -404,7 +400,7 @@ class PowerSupply(VisaInstrument):
                 else:
                     q = ':SOURce:CURRent {}'.format(current)
 
-                self.instrument.write(q)
+                self.instrument.query(q)
                 success = True
 
             except pyvisa.errors.VisaIOError as e:
@@ -434,7 +430,7 @@ class PowerSupply(VisaInstrument):
                 else:
                     q = ':OUTPut:STATe ON'
 
-                self.instrument.write(q)
+                self.instrument.query(q)
                 success = True
 
             except pyvisa.errors.VisaIOError as e:
@@ -464,7 +460,7 @@ class PowerSupply(VisaInstrument):
                 else:
                     q = ':OUTPut:STATe OFF'
 
-                self.instrument.write(q)
+                self.instrument.query(q)
                 success = True
 
             except pyvisa.errors.VisaIOError as e:
@@ -505,7 +501,7 @@ class PowerSupply(VisaInstrument):
                     else:
                         q = ':CURRent:PROTection:STATe OFF'
 
-                self.instrument.write(q)
+                self.instrument.query(q)
                 success = True
 
             except pyvisa.errors.VisaIOError as e:
@@ -518,7 +514,7 @@ class PowerSupply(VisaInstrument):
 
 
 def main():
-    psu = PowerSupply(model_number='CPX400SP')
+    psu = PowerSupply(serial_number='US08E6445J')
     #print('starting status: ', psu.read_status())
     print(psu.get_id())
 
