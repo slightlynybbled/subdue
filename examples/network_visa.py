@@ -11,7 +11,6 @@ url = 'http://localhost:5001/visa/{}'.format(device_reference)
 # power supply control commands
 data = {'operation': 'write', 'parameter': 'voltage', 'value': 2.0}    # write to PSU voltage
 r = requests.post(url, json=data)
-print('returned')
 print(r.json())
 
 data = {'operation': 'write', 'parameter': 'current', 'value': 2.0}    # write to PSU current

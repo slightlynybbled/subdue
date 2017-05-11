@@ -1,3 +1,3 @@
-from subdue.daqmx import *
-from subdue.tc08 import *
-from subdue.visa import *
+from subdue.daqmx import NIDAQmxSearch, NIDAQmx
+from subdue.thermocouple import ThermocoupleSearch, ThermocoupleReader
+from subdue.visa import VisaInstrumentSearch, PowerSupply

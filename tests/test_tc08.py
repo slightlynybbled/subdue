@@ -4,7 +4,7 @@ Run these tests with *only* TC-08 attached.
 """
 
 import pytest
-import subdue.tc08 as tc08
+import subdue.thermocouple as tc08
 
 
 @pytest.fixture

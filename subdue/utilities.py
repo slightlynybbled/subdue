@@ -1,8 +1,6 @@
 from pkg_resources import get_distribution
 
-import subdue.daqmx as daqmx
-import subdue.tc08 as tc08
-import subdue.visa as visa
+import subdue
 
 daqs = []
 thermocouples = []
@@ -15,7 +13,7 @@ def parse_daq_command(device_name, command):
     # make a list of current device names
     current_devices = [daq.device for daq in daqs]
     if device_name not in current_devices:
-        daq = daqmx.NIDAQmx(device_name)
+        daq = subdue.NIDAQmx(device_name)
         daqs.append(daq)
     else:
         index = current_devices.index(device_name)
@@ -68,7 +66,7 @@ def parse_thermocouple_command(device_name, commands):
     current_devices = [tc.model for tc in thermocouples]
     if device_name not in current_devices:
         channel = commands[0]['channel'] if isinstance(commands, list) else commands['channel']
-        tc = tc08.ThermocoupleReader(types=channel)
+        tc = subdue.ThermocoupleReader(types=channel)
         thermocouples.append(tc)
     else:
         index = current_devices.index(device_name)
@@ -100,8 +98,6 @@ def parse_thermocouple_command(device_name, commands):
 def parse_visa_command(command, serial_number=None):
     global power_supplies
 
-    print('power_supplies: ', power_supplies)
-
     serial_numbers = [psu.serial_number for psu in power_supplies]
 
     # retrieve a previously-utilized power supply or allocate a new one
@@ -113,23 +109,18 @@ def parse_visa_command(command, serial_number=None):
                 psu = power_supply
 
     else:
-        connected = visa.list_connected()
-        print('connected: ', connected)
-        for power_supply in connected:
-            print('power supply sn: {} model: {}'.format(
-                power_supply.get('SerialNumber'),
-                power_supply.get('ModelNumber')
-            ))
-            if power_supply['SerialNumber'] == serial_number:
+        searcher = subdue.VisaInstrumentSearch()
+        connected = searcher.list_serial_numbers()
+
+        for psu_sn in connected:
+            if psu_sn == serial_number:
                 print('power supply found!')
-                psu = visa.PowerSupply(serial_number=serial_number)
+                psu = subdue.PowerSupply(serial_number=serial_number)
                 power_supplies.append(psu)
                 break
 
     if not psu:
         return {'error': 'psu not found'}
-
-    print(type(psu), command)
 
     if command['operation'] == 'write':
         # parse the write command into the appropriate visa request

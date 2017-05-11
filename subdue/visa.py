@@ -4,7 +4,7 @@ import eventlet
 import time
 import re
 
-from subdue import HardwareSearch
+from subdue.base_classes import HardwareSearch
 
 InstrumentId = collections.namedtuple('InstrumentId',
                                       'Manufacturer,ModelNumber,SerialNumber')

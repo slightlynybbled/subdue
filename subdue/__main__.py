@@ -6,7 +6,7 @@ import markdown
 
 import subdue.daqmx as daqmx
 import subdue.visa as visa
-import subdue.tc08 as tc08
+import subdue.thermocouple as tc08
 import subdue.utilities as utilities
 import subdue.cmd as cmd
 
