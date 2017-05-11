@@ -13,8 +13,10 @@ psu.on()
 
 time.sleep(0.5)  # wait for output to stabilize before attempting a read
 
-print(psu.read_voltage())
-print(psu.read_current())
-print(psu.read_status())
+print('voltage: ', psu.read_voltage())
+print('current: ', psu.read_current())
+print('status: ', psu.read_status())
+
+time.sleep(1.0)
 
 psu.reset()

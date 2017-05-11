@@ -1,3 +1,4 @@
+import time
 import requests
 
 """
@@ -20,6 +21,11 @@ data = {
     'value': 1
 }
 requests.post(url, json=data)
+time.sleep(1.0)
+
+data['value'] = 0
+requests.post(url, json=data)
+
 
 '''
 read /Dev1/port0/line1 (digital)
@@ -35,13 +41,17 @@ r = requests.post(url, json=data)
 print(r.json())  # print out the returned JSON data
 
 '''
-write 1.25V to ao0
+write 1.25V, then 1.75V to ao0
 '''
 data = {
     'operation': 'ao',
     'ao': 0,
     'value': 1.25
 }
+requests.post(url, json=data)
+
+time.sleep(1.0)
+data['value'] = 1.75
 requests.post(url, json=data)
 
 '''
@@ -57,6 +67,7 @@ print(r.json())
 '''
 execute a series of commands
 '''
+time.sleep(1.0)
 data = [
     {'operation': 'ao', 'ao': 0, 'value': 1.25},
     {'operation': 'ai', 'ai': 0},

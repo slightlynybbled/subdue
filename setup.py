@@ -16,7 +16,7 @@ requirements = [
 
 setup(
     name='subdue',
-    version='v0.1.3',
+    version='v0.1.4',
     description='Hardware manipulation for National Instruments, Agilent, etc.',
     author='Jason R. Jones',
     author_email='slightlynybbled@gmail.com',
