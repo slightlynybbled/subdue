@@ -7,6 +7,9 @@ test using the old Python favorites.  In many ways, this is somewhat
 equivalent to LabView in functionality, but with all of the advantages
 of Python.  Enjoy!
 
+For more information, be sure to check out the 
+[documentation](https://pythonhosted.org/subdue/)!
+
 # Installation Requirements
 
 You will need to have a working installation of 
@@ -20,7 +23,8 @@ extensions are associated with `python`.
 # Installation Instructions
 
 To install, simply `pip install subdue`.  Note that there are several
-external dependencies.  See the documentation for details.
+external dependencies.  See the [documentation](https://pythonhosted.org/subdue/) 
+for details.
 
 ## Examples
 
