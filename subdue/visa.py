@@ -46,7 +46,8 @@ class VisaInstrumentSearch(HardwareSearch):
         pass
 
     def list_devices(self):
-        return list_connected()
+        connected = list_connected()
+        return [instrument['ModelNumber'] for instrument in connected]
 
 
 class VisaInstrument:
