@@ -17,7 +17,7 @@ These installation files are required for all distributions.
 # DC Power Supplies
 
 Currently, the Agilent N5700 series and the Aim TTi CPX400SP are fully
-supported within the AMS Test Suite.  The user must install the appropriate
+supported within the Subdue.  The user must install the appropriate
 drivers for the hardware.
 
 ## N5700 Drivers

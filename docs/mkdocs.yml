@@ -1,11 +1,11 @@
-site_name: AMS Hardware Suite
+site_name: Subdue
 
 pages:
  - Home: index.md
  - Getting Started:
      - Installation: installation.md
      - Python Native Mode: native.md
-     - Standalone Mode: standalone.md
+     - Network Mode: network.md
  - Supported Devices: supported_devices.md
 
 theme: readthedocs

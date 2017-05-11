@@ -4,10 +4,10 @@ To begin execution, go to the command line and execute
 
     C:> subdue
     
-If the `ams_hw_suite` is installed in a virtual environment, that environment may need to be
+If the `subdue` is installed in a virtual environment, that environment may need to be
 activated before this command will function properly.  If you wish to ensure that the server
 is up and running, then you may open a browser and navigate to the 
-[ams_hw_suite web server](http://127.0.0.1:5001) and you will see a brief summary of
+[subdue web server](http://127.0.0.1:5001) and you will see a brief summary of
 capabilities.
 
 Navigate to [/attached](http://127.0.0.1:5001/attached) to see all attached hardware.

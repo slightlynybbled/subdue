@@ -1,6 +1,6 @@
 # Purpose
 
-The purpose of the AMS Hardware Suite is to provide access to hardware from various vendors for
+The purpose of the `Subdue` is to provide access to hardware from various vendors for
 which National Instruments LabView drivers are typically provided.
  
 This access is written using Python, a dynamic textual language.  One goal of this project is
@@ -9,7 +9,7 @@ so that any language may be utilized for the control of attached instrumentation
 
 # Modes
 
-There are two modes in which this software package may execute: `native python` and `standalone`.  These
+There are two modes in which this software package may execute: `native` and `network`.  These
 modes are not mutually exclusive on a particular machine, but a particular instrument may not
 be allocated to two executing processes.
 
@@ -19,13 +19,13 @@ When utilized as a native Python library, the user need only perform the proper 
 access to all hardware functionality directly:
 
 ```python
-from subdue import *
+import subdue
 ```
 
 This gives the executing native process direct access to the hardware and will result in the most
 dynamic use of the hardware.
 
-## Standalone
+## Network
 
 The software will also execute in standalone mode.  Standalone mode will start an http server on
 the local host and simply wait for commands to be sent to it.  Each command will result in the
@@ -50,16 +50,15 @@ response:
 ```json
 {
   "daq": [
-    ""
+    "Dev8"
+  ], 
+  "thermocouple": [
+    "TC-08"
   ], 
   "visa": [
-    {
-      "Manufacturer": "TEKTRONIX", 
-      "ModelNumber": "MSO4034", 
-      "SerialNumber": "C020160"
-    }
+    "US08E6445J"
   ]
 }
 ```
 
-The above response indicates that there is no DAQ attached and one VISA instrument attached.
+The above response indicates that there is a DAQ, a thermocouple, and a visa instrument attached.
