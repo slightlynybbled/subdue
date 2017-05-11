@@ -46,8 +46,27 @@ class VisaInstrumentSearch(HardwareSearch):
         pass
 
     def list_devices(self):
-        connected = list_connected()
-        return [instrument['ModelNumber'] for instrument in connected]
+        data = list()
+
+        for instrument in list_connected():
+            device_data = {
+                'reference': instrument.get('ModelNumber'),
+                'model': instrument.get('ModelNumber'),
+                'serial': instrument.get('SerialNumber')
+            }
+
+            data.append(device_data)
+
+        return data
+
+    def list_references(self):
+        return [instrument['ModelNumber'] for instrument in list_connected()]
+
+    def list_models(self):
+        return [instrument['ModelNumber'] for instrument in list_connected()]
+
+    def list_serial_numbers(self):
+        return [instrument['SerialNumber'] for instrument in list_connected()]
 
 
 class VisaInstrument:
@@ -57,7 +76,7 @@ class VisaInstrument:
 
     command_timeout = 100
 
-    def __init__(self, instrument=None, model_number=None, serial_number=None):
+    def __init__(self, model_number=None, serial_number=None, instrument=None):
         """
         If the instrument is supplied, then this will save the instrument into the
         object for utilization.

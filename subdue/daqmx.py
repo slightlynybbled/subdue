@@ -28,14 +28,14 @@ class NIDAQmx:
 
         if self.device:
             search = NIDAQmxSearch()
-            devices = search.list_devices()
+            devices = search.list_references()
             if self.device not in devices:
                 raise ValueError('device name "{}" not found'.format(self.device))
 
         if serial_number and not self.device:
             search = NIDAQmxSearch()
             target_device = None
-            for device in search.list_devices():
+            for device in search.list_references():
                 if search.product_serial_number(device) == int(serial_number, 16):
                     target_device = device
                     self.device = device
@@ -46,7 +46,7 @@ class NIDAQmx:
         # when no specific device is specified, grab the first one
         if not device_name and not serial_number:
             search = NIDAQmxSearch()
-            devices = search.list_devices()
+            devices = search.list_references()
             if len(devices) == 1:
                 self.device = devices[0]
             else:
@@ -253,6 +253,20 @@ class NIDAQmxSearch(HardwareSearch):
         return tuple(items)
 
     def list_devices(self):
+        devices = list()
+
+        for device in self.list_references():
+            d = {
+                'reference': device,
+                'model': self.product_type(device),
+                'serial': self.product_serial_number(device)
+            }
+
+            devices.append(d)
+
+        return devices
+
+    def list_references(self):
         """
         :return: A list of the attached devices, by name.
         """
@@ -263,6 +277,15 @@ class NIDAQmxSearch(HardwareSearch):
         devices = [device for device in devices if device is not '']
 
         return devices
+
+    def list_serial_numbers(self):
+        """
+        :return: A list of the attached devices, by model number.
+        """
+        return [self.product_serial_number(device) for device in self.list_references()]
+
+    def list_models(self):
+        return [self.product_type(device) for device in self.list_references()]
 
     def product_type(self, device_name):
         """
@@ -362,7 +385,7 @@ class NIDAQmxSearch(HardwareSearch):
 
 if __name__ == "__main__":
     ni_daq_search = NIDAQmxSearch()
-    dev_list = ni_daq_search.list_devices()
+    dev_list = ni_daq_search.list_references()
 
     print('ni search results: {}'.format(dev_list))
     print(ni_daq_search.list_do_lines(dev_list[0]))

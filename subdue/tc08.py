@@ -54,9 +54,48 @@ class ThermocoupleSearch(HardwareSearch):
         pass
 
     def list_devices(self):
+        references = self.list_references()
+
+        if references is []:
+            return []
+
+        device = {
+            'reference': references[0],
+            'model': references[0],
+            'serial': None
+        }
+
+        return [device]
+
+    def list_references(self):
         try:
             reader = ThermocoupleReader()
             return [reader.model]
+        except AttributeError:
+            return []
+
+    def list_models(self):
+        """
+        Return a list containing the model numbers attached.
+
+        :return: list containing model numbers
+        """
+        try:
+            reader = ThermocoupleReader()
+            return [reader.model]
+        except AttributeError:
+            return []
+
+    def list_serial_numbers(self):
+        """
+        No implemented method for finding the serial number of the device, so simply return
+        a list containing 'None' if attached, otherwise return an empty list if no reader is found.
+        
+        :return: list containing serial numbers
+        """
+        try:
+            ThermocoupleReader()
+            return [None]
         except AttributeError:
             return []
 

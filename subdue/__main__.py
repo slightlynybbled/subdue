@@ -34,19 +34,19 @@ def attached():
 
     # find daq devices:
     s = daqmx.NIDAQmxSearch()
-    devices = s.list_devices()
+    devices = s.list_references()
     if devices:
         attached_devices['daq'] = list(devices)
 
     # find visa devices
     s = visa.VisaInstrumentSearch()
-    devices = s.list_devices()
+    devices = s.list_references()
     if devices:
         attached_devices['visa'] = devices
 
     # find attached tc08 devices
     s = tc08.ThermocoupleSearch()
-    devices = s.list_devices()
+    devices = s.list_references()
     if devices:
         attached_devices['thermocouple'] = devices
 

@@ -18,7 +18,7 @@ analog_tolerance = 0.20    # this is the analog tolerance for the test
 @pytest.fixture
 def device():
     s = daqmx.NIDAQmxSearch()
-    devices = s.list_devices()
+    devices = s.list_references()
     yield devices[0]
 
 
@@ -30,7 +30,7 @@ def search():
 @pytest.fixture
 def daq():
     s = daqmx.NIDAQmxSearch()
-    device = s.list_devices()[0]
+    device = s.list_references()[0]
 
     yield daqmx.NIDAQmx(device)
 
