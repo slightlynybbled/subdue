@@ -45,7 +45,7 @@ then you will know that you can access devices at `/daq/Dev1` and `/daq/Dev4`.  
         ],
         
         "thermocouple": [
-        "TC-08"
+            "TC-08"
         ],
         
         "psu": [
