@@ -11,7 +11,7 @@ of Python.  Enjoy!
 
 You will need to have a working installation of 
 [Python 3.5](https://www.python.org/downloads/) environment to run
-the AMS Hardware Suite.  Installation of some or all software may require
+`subdue`.  Installation of some or all software may require
 administrative access.
 
 It is recommended that `python` be added to the `PATH` and that `*.py`
