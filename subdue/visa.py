@@ -74,7 +74,7 @@ class VisaInstrument:
     A class designed to create a common grouping for all VISA instruments
     """
 
-    command_timeout = 100
+    command_timeout = 1
 
     def __init__(self, serial_number=None, model_number=None, instrument=None):
         """
@@ -193,6 +193,7 @@ class PowerSupply(VisaInstrument):
                 voltage = float(voltage_str)
                 success = True
             except pyvisa.errors.VisaIOError as e:
+                print('ERROR: ', e)
                 if (time.clock() - start_time) > self.command_timeout:
                     break
 
@@ -338,7 +339,7 @@ class PowerSupply(VisaInstrument):
         while not success:
             try:
                 q = '*RST'
-                self.instrument.query(q)
+                self.instrument.write(q)
                 success = True
 
             except pyvisa.errors.VisaIOError as e:
@@ -369,7 +370,7 @@ class PowerSupply(VisaInstrument):
                 else:
                     q = ':SOURce:VOLTage {}'.format(voltage)
 
-                self.instrument.query(q)
+                self.instrument.write(q)
                 success = True
 
             except pyvisa.errors.VisaIOError as e:
@@ -400,7 +401,7 @@ class PowerSupply(VisaInstrument):
                 else:
                     q = ':SOURce:CURRent {}'.format(current)
 
-                self.instrument.query(q)
+                self.instrument.write(q)
                 success = True
 
             except pyvisa.errors.VisaIOError as e:
@@ -430,7 +431,7 @@ class PowerSupply(VisaInstrument):
                 else:
                     q = ':OUTPut:STATe ON'
 
-                self.instrument.query(q)
+                self.instrument.write(q)
                 success = True
 
             except pyvisa.errors.VisaIOError as e:
@@ -460,7 +461,7 @@ class PowerSupply(VisaInstrument):
                 else:
                     q = ':OUTPut:STATe OFF'
 
-                self.instrument.query(q)
+                self.instrument.write(q)
                 success = True
 
             except pyvisa.errors.VisaIOError as e:
@@ -501,7 +502,7 @@ class PowerSupply(VisaInstrument):
                     else:
                         q = ':CURRent:PROTection:STATe OFF'
 
-                self.instrument.query(q)
+                self.instrument.write(q)
                 success = True
 
             except pyvisa.errors.VisaIOError as e:

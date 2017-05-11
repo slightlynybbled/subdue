@@ -97,8 +97,10 @@ def parse_thermocouple_command(device_name, commands):
         return {'channel': channel, 'value': raw_values[channel], 'unit': 'Celsius'}
 
 
-def parse_visa_command(command, model_number=None, serial_number=None):
+def parse_visa_command(command, serial_number=None):
     global power_supplies
+
+    print('power_supplies: ', power_supplies)
 
     serial_numbers = [psu.serial_number for psu in power_supplies]
 
@@ -112,8 +114,14 @@ def parse_visa_command(command, model_number=None, serial_number=None):
 
     else:
         connected = visa.list_connected()
-        for psu in connected:
-            if psu['SerialNumber'] == serial_number:
+        print('connected: ', connected)
+        for power_supply in connected:
+            print('power supply sn: {} model: {}'.format(
+                power_supply.get('SerialNumber'),
+                power_supply.get('ModelNumber')
+            ))
+            if power_supply['SerialNumber'] == serial_number:
+                print('power supply found!')
                 psu = visa.PowerSupply(serial_number=serial_number)
                 power_supplies.append(psu)
                 break
@@ -121,11 +129,15 @@ def parse_visa_command(command, model_number=None, serial_number=None):
     if not psu:
         return {'error': 'psu not found'}
 
+    print(type(psu), command)
+
     if command['operation'] == 'write':
         # parse the write command into the appropriate visa request
         if command['parameter'] == 'voltage':
+            print('attempting to set voltage...')
             v = command['value']
             psu.set_voltage(float(v))
+            print('voltage is set to ', v)
         elif command['parameter'] == 'current':
             c = command['value']
             psu.set_current(float(c))

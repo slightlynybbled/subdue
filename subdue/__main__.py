@@ -84,6 +84,8 @@ def visa_by_model_number(serial_number=None):
 
     result = utilities.parse_visa_command(command, serial_number=serial_number)
 
+    print('result: ', result)
+
     return flask.jsonify(result), 200
 
 
