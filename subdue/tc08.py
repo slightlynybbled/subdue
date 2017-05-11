@@ -68,7 +68,10 @@ class ThermocoupleReader:
 
     # todo: consider making this a property
     def available_channels(self):
-        return [str(i) for i in range(9)]
+        if self.model == 'TC-08':
+            return [str(i) for i in range(9)]
+        else:
+            raise TypeError('model number is not supported')
 
     def enable_channel(self, channel_number, tc_type):
         if channel_number not in range(9):
