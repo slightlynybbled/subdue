@@ -14,7 +14,7 @@ class BaseFrame(tk.Frame):
         self.tc_value_labels = []
         self.tc_unit_labels = []
 
-        self.tc_reader = subdue.tc08.ThermocoupleReader()
+        self.tc_reader = subdue.ThermocoupleReader()
 
         for i in range(len(self.tc_reader.available_channels())):
             self.tc_reader.enable_channel(i, 'K')

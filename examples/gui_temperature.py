@@ -10,7 +10,7 @@ class BaseFrame(tk.Frame):
         self.title_label = tk.Label(self, text='Temperature')
         self.title_label.grid(row=0, column=0, columnspan=3)
 
-        self.tc_reader = subdue.tc08.ThermocoupleReader()
+        self.tc_reader = subdue.ThermocoupleReader()
 
         self.tc_channel = 1
         self.tc_reader.enable_channel(self.tc_channel, 'K')
