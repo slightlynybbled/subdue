@@ -20,7 +20,7 @@ class BaseFrame(tk.Frame):
             self.tc_reader.enable_channel(i, 'K')
 
             label = tk.Label(self, text='TC {}'.format(i))
-            value = tk.Label(self, text=''.format(i))
+            value = tk.Label(self, text='')
             unit = tk.Label(self, text='\u2103')
 
             label.grid(row=1+i, column=0)

@@ -16,7 +16,7 @@ class BaseFrame(tk.Frame):
         self.tc_reader.enable_channel(self.tc_channel, 'K')
 
         self.tc_label = tk.Label(self, text='TC {}'.format(self.tc_channel))
-        self.tc_value = tk.Label(self, text=''.format(self.tc_channel))
+        self.tc_value = tk.Label(self, text='')
         self.tc_unit = tk.Label(self, text='\u2103')
 
         self.tc_label.grid(row=1, column=0)
