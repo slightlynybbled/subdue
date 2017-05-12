@@ -60,6 +60,7 @@ class BaseFrame(tk.Frame):
         self.ocp_var.trace('w', self.ocp)
 
     def __del__(self):
+        self.psu.reset()
         del self.psu
 
     def set_voltage(self, event):
