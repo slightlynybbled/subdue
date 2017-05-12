@@ -14,13 +14,19 @@ requirements = [
     "waitress >= 1.0.0"
 ]
 
+with open('readme.md', 'r') as f:
+    long_description = f.read()
+
 setup(
     name='subdue',
-    version='v0.1.4',
+    version='v0.1.5',
     description='Hardware manipulation for National Instruments, Agilent, etc.',
+    long_description=long_description,
     author='Jason R. Jones',
     author_email='slightlynybbled@gmail.com',
     url='https://github.com/slightlynybbled/subdue',
+    license='MIT',
+    keywords='test labview visa instrument hardware',
     packages=find_packages(),
     entry_points={'console_scripts': [
       'subdue = subdue.__main__:main']

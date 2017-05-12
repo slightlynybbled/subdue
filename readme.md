@@ -33,6 +33,13 @@ Several examples are provided for your convenience within the
 Note that the examples will require attached hardware, hardware drivers,
 and may require other packages (such as `requests`).
 
+# Project Maturity
+
+The generic API of this project is expected to change somewhat, but is beginning
+to firm up.  I expect that more instruments will be added as I begin to work with
+more hardware.  The instruments currently populated have been sufficient for
+most of my test needs at this time.
+
 # Contributions
 
 Please use the [issues](https://github.com/slightlynybbled/subdue/issues)
