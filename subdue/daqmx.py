@@ -229,6 +229,37 @@ class NIDAQmx:
         else:
             raise ValueError('output_format must be "list" or left blank')
 
+    def get_fundamental_frequency(self, analog_input, sample_count=1000, rate=1000):
+        signal = self.sample_analog_in(analog_input, sample_count, rate)
+        fourier = np.fft.fft(signal)
+        n = signal.size
+        timestep = 1 / rate
+
+        freq = np.fft.fftfreq(n, d=timestep)
+
+        # make a series of tuples that couple the
+        # absolute magnitude with the frequency
+        a_vs_f = []
+        for i, e in enumerate(freq):
+            a_vs_f.append((np.absolute(fourier[i]), freq[i]))
+
+        # sort based on the absolute magnitude
+        a_vs_f_sorted = sorted(a_vs_f, key=lambda x: x[0])
+
+        # if the highest magnitude is at 0.0 frequency,
+        # then remove that datapoint
+        if a_vs_f_sorted[-1][1] == 0.0:
+            a_vs_f_sorted.pop(-1)
+
+        # the highest magnitude is at the last index
+        frequency = a_vs_f_sorted[-1][1]
+        if frequency < 0:
+            frequency *= -1
+
+        frequency = round(float(frequency), 1)
+
+        return frequency
+
 
 class NIDAQmxSearch(HardwareSearch):
     """

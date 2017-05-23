@@ -19,7 +19,7 @@ with open('readme.md', 'r') as f:
 
 setup(
     name='subdue',
-    version='v0.1.6',
+    version='v0.1.7',
     description='Hardware manipulation for National Instruments, Agilent, etc.',
     long_description=long_description,
     author='Jason R. Jones',
