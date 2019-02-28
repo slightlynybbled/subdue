@@ -19,9 +19,10 @@ with open('readme.md', 'r') as f:
 
 setup(
     name='subdue',
-    version='v0.1.7',
+    version='v0.1.8',
     description='Hardware manipulation for National Instruments, Agilent, etc.',
     long_description=long_description,
+    long_description_content_type='text/markdown',
     author='Jason R. Jones',
     author_email='slightlynybbled@gmail.com',
     url='https://github.com/slightlynybbled/subdue',
